@@ -1,0 +1,23 @@
+﻿<h3 class="text-info text-justify">
+    Currency page
+    <span ng-if="data.data_publikacji">for {{data.data_publikacji}}</span>
+</h3>
+<div ng-if="data">
+    <table class="table table-striped table-responsive">
+        <thead>
+            <tr class="info">
+                <th>Currency</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="record in data.pozycja">
+                <td>
+                    <span ng-if="record.nazwa_waluty">{{record.nazwa_waluty}}</span>
+                    <span ng-if="record.nazwa_kraju">{{record.nazwa_kraju}}</span>
+                </td>
+                <td>{{record.kurs_sredni}} PLN</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
