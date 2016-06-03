@@ -1,0 +1,19 @@
+﻿<h3 class="text-info text-center">
+    Data files publicated in 
+    <select ng-model="year" ng-options="year for year in years" ng-change="loadFiles(year)"></select>
+</h3>
+<div ng-if="!loading">
+    <table class="table table-striped">
+        <tbody>
+            <tr ng-if="files.length > 0" class="clickable" ng-repeat="file in files" ng-click="loadCurrencyFromFile(file)">
+                <td class="text-center">{{file.publishedAt}}</td>
+            </tr>
+            <tr ng-if="files.length === 0">
+                <td class="text-center">No files found</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div ng-if="loading" class="text-center alert">
+    <span class="fa fa-spinner fa-spin fa-4x"></span>
+</div>
