@@ -2,16 +2,14 @@
     'use strict';
 
     var config = {
-        apiUrl: 'http://localhost:8080/currencyViewerApp/api'
     };
-
-
 
     angular
             .module('currencyViewerApp')
             .constant('config', config)
             .run(['$rootScope', '$state',
                 function ($rootScope, $state) {
+                    $('#content').height($('#app').height() - 52);
                     $state.go('home')
                     $rootScope.$on('$stateChangeStart', function (event, toState,
                             toStateParams) {
@@ -47,7 +45,7 @@
                 },
                 'navbar@': {
                     templateUrl: 'views/navbar/navbar.html',
-                    controller: 'NavbarController'
+                    controller: 'NavbarCtrl'
                 }
             }            
         });

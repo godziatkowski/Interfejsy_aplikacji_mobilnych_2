@@ -1,2 +1,13 @@
 ﻿body {
 }
+.win-scrollview {
+    height:auto;
+    /*max-height: 800px;*/
+    overflow-y: scroll;    
+}
+.clickable {
+    cursor: pointer;    
+}
+.clickable:hover {
+    opacity: 0.7;
+}

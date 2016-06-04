@@ -5,11 +5,29 @@
         .controller('HomeCtrl', HomeCtrl);
 
     HomeCtrl.$inject = [
-        '$scope'
+        '$scope',
+        'xmlDownloader',
+        'file'
     ];
 
-    function HomeCtrl($scope) {
-        $scope.text = 'sasasasasasa';
-        $scope.array = ['a','b','c','d'];
+    function HomeCtrl($scope, xmlDownloader, file) {
+        if (file) {
+            loadData(file);
+        } else {
+            loadData();
+        }
+
+        $scope.$on('loadLastEvent', function () {
+            loadData();
+        });
+
+        function loadData(fileName) {
+            if (!fileName) {
+                fileName = 'lastA';
+            }
+            xmlDownloader.download(fileName).then(function (result) {
+                $scope.data = result;                
+            });
+        }
     }
 })();

@@ -10,9 +10,14 @@
     function HomeRouteProvider($stateProvider) {
         $stateProvider.state('home', {
             parent: 'root',
-            url: '/home',
-            templateUrl: 'views/home.html',
-            controller: 'HomeCtrl'
+            url: '/home?fileName',
+            templateUrl: 'views/home/home.html',
+            controller: 'HomeCtrl',
+            resolve: {
+                file: ['$stateParams', function ($stateParams) {
+                    return $stateParams.fileName;
+                }]
+            }
         });
     }
 })();
