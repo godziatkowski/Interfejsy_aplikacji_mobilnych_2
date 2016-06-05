@@ -6,11 +6,12 @@
 
     HomeCtrl.$inject = [
         '$scope',
-        'xmlDownloader',
-        'file'
+        'file',
+        'fileLoadingService',
+        'xmlDownloader'
     ];
 
-    function HomeCtrl($scope, xmlDownloader, file) {
+    function HomeCtrl($scope, file, fileLoadingService, xmlDownloader) {
         if (file) {
             loadData(file);
         } else {
@@ -22,12 +23,18 @@
         });
 
         function loadData(fileName) {
-            if (!fileName) {
-                fileName = 'lastA';
+            console.log(fileName);
+            if (fileName) {
+                fileLoadingService.getFile(fileName)
+                    .then(function (result) {
+                        $scope.data = result;
+                    });
+            } else {
+                xmlDownloader.download('lastA')
+                    .then(function (result) {
+                        $scope.data = result;
+                    });
             }
-            xmlDownloader.download(fileName).then(function (result) {
-                $scope.data = result;                
-            });
         }
     }
 })();
