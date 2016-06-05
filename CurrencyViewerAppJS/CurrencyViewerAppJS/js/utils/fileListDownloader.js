@@ -4,19 +4,20 @@
     angular.module('currencyViewerApp')
     .service('fileListDownloader', fileListDownloader);
 
-    fileListDownloader.$inject = ['$http'];
+    fileListDownloader.$inject = ['$http', '$q'];
 
-    function fileListDownloader($http) {
-        var url = 'http://www.nbp.pl/kursy/xml/';
+    function fileListDownloader($http, $q) {
+        var url = 'http://www.nbp.pl/kursy/xml/dir';
 
         return {
-            download: load
+            download: load,
+            downloadMany: loadMany
         }
 
-        function load(fileName) {
+        function load(year) {
             return $http({
                 method: 'GET',
-                url: url + fileName +'.txt',
+                url: url + year +'.txt',
                 headers: {
                     'Content-Type': 'text/plain'
                 },
@@ -28,12 +29,33 @@
                     if (allFiles[index].startsWith('a')) {
                         var stringDate = allFiles[index].trim().slice(-6);
                         var publishedAt = moment( stringDate, 'YYMMDD').format('dddd, MMMM Do YYYY')
-                        data.push({ fileName: allFiles[index], publishedAt: publishedAt })
+                        data.push({ fileName: allFiles[index].trim(), publishedAt: publishedAt })
                     }
                 }
                 return data;
 
             });
+
+        }
+
+        function loadMany(years) {
+            var currentYear = moment().year();
+            var promises = [];
+            for (var index = 0; index < years.length; index++) {
+                if(years[index] !== currentYear){
+                    promises.push(load(years[index]));
+                } else {
+                    promises.push(load(''));
+                }
+            }
+
+            return $q.all(promises).then(function (data) {
+                var fileNames = [];
+                for (var indexOfArray = 0; indexOfArray < data.length; indexOfArray++) {
+                    fileNames = fileNames.concat(fileNames, data[indexOfArray]);
+                }
+                return fileNames;
+            })
 
         }
 

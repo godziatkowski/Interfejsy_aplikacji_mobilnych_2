@@ -69,6 +69,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
+    <Content Include="css\angular-chart.min.css" />
     <Content Include="default.html" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -90,6 +91,8 @@
     <Content Include="images\Wide310x150Logo.scale-200.png" />
     <Content Include="js\app.config.js" />
     <Content Include="js\app.js" />
+    <Content Include="js\currencyDetails\currencyDetails.controller.js" />
+    <Content Include="js\currencyDetails\currencyDetails.route.js" />
     <Content Include="js\fileList\fileList.controller.js" />
     <Content Include="js\fileList\fileList.route.js" />
     <Content Include="js\home\home.controller.js" />
@@ -97,6 +100,9 @@
     <Content Include="css\default.css" />
     <Content Include="js\home\home.route.js" />
     <Content Include="js\navbar\navbar.controller.js" />
+    <Content Include="js\utils\charts\angular-chart.js" />
+    <Content Include="js\utils\charts\angular-chart.min.js" />
+    <Content Include="js\utils\charts\Chart.min.js" />
     <Content Include="js\utils\fileListDownloader.js" />
     <Content Include="js\utils\fileStoringService.js" />
     <Content Include="js\utils\fileLoadingService.js" />
@@ -118,10 +124,10 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-1.9.1.intellisense.js" />
-    <Content Include="Scripts\jquery-1.9.1.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Scripts\jquery-1.11.3.intellisense.js" />
+    <Content Include="Scripts\jquery-1.11.3.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.map" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
@@ -129,6 +135,7 @@
     <Content Include="Views\fileList\fileList.html" />
     <Content Include="Views\home\Home.html" />
     <Content Include="Views\navbar\navbar.html" />
+    <Content Include="Views\currencyDetails\currencyDetails.html" />
     <Content Include="WinJS\css\ui-dark.css" />
     <Content Include="WinJS\css\ui-light.css" />
     <Content Include="WinJS\fonts\Symbols.ttf" />

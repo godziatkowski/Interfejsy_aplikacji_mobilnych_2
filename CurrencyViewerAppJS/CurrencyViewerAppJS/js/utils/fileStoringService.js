@@ -17,12 +17,12 @@
 
 
         function store(fileName, fileContent) {
-            appLocal.writeText(fileName + jsonExtension, JSON.stringify(fileContent));
+            appLocal.writeText(fileName.trim() + jsonExtension, JSON.stringify(fileContent));
         }
 
         function load(fileName) {
             return appLocal.readText(fileName + jsonExtension).then(function (data) {
-                return JSON.parse(data);
+                return angular.fromJson(data);
             });
         }
     }

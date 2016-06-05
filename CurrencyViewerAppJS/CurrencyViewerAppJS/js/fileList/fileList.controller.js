@@ -27,12 +27,12 @@
             $scope.files = [];
             $scope.loading = true;
             if (year && year !== moment().year()) {
-                fileListDownloader.download('dir' + year).then(function (result) {
+                fileListDownloader.download(year).then(function (result) {
                     $scope.files = result;
                     $scope.loading = false;
                 });
             } else {
-                fileListDownloader.download('dir').then(function (result) {
+                fileListDownloader.download('').then(function (result) {
                     $scope.files = result;
                     $scope.loading = false;
                 });

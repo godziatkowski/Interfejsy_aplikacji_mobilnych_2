@@ -4,16 +4,17 @@
     angular.module('currencyViewerApp')
     .service('fileLoadingService', fileLoadingService);
 
-    fileLoadingService.$inject = ['fileListDownloader', 'fileStorageService', 'xmlDownloader'];
+    fileLoadingService.$inject = ['$q', 'fileListDownloader', 'fileStorageService', 'xmlDownloader'];
 
-    function fileLoadingService(fileListDownloader, fileStorageService, xmlDownloader) {
+    function fileLoadingService($q, fileListDownloader, fileStorageService, xmlDownloader) {
         var files = undefined;
         var filesLoaded = false;
         var promise = loadFileList();
 
         return {
             addStoredFileName: addStoredFileName,
-            getFile: getFile
+            getFile: getFile,
+            getFiles: getFiles
         }
 
         function addStoredFileName(fileName) {
@@ -29,6 +30,18 @@
             } else {
                 return promise.then(getFileAsync(fileName));
             }
+        }
+
+        function getFiles(files) {
+            var promises = [];
+
+            for (var fileNameIndex = 0; fileNameIndex < files.length; fileNameIndex++) {
+                promises.push(getFile(files[fileNameIndex]));
+            }
+
+            return $q.all(promises).then(function (data) {                
+                return data;
+            });
         }
 
         function getFileAsync(fileName) {
@@ -62,16 +75,15 @@
         }
 
         function saveFileList() {
-            console.log('saving file list');
             fileStorageService.store('fileList', files);
         }
 
         function loadFileList() {
-            console.log('loadingFiles');
             return fileStorageService.load('fileList').then(function (result) {
-                console.log(result);
                 if (result) {
                     files = result;
+                } else {
+                    files = [];
                 }
                 filesLoaded = true;
             })

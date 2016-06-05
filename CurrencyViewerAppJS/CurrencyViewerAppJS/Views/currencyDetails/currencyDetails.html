@@ -1,0 +1,38 @@
+﻿    <div class="row">
+        <div class="col-xs-4 col-xs-offset-1">
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup ng-model="fromDate" is-open="fromDatePickerOpen" min-date="firstRecord" max-date="today" 
+                       ng-required="true" close-text="Close" datepicker-options="dateOptions"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openFromDatePicker()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+        <div class="col-xs-4">
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup ng-model="toDate" is-open="toDatePickerOpen" min-date="firstRecord" max-date="today" 
+                       ng-required="true" close-text="Close" datepicker-options="dateOptions"/>
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="openToDatePicker()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+        <div class="col-xs-2">
+            <button class="btn btn-block btn-success" ng-click="show()">Display values</button>
+        </div>
+        <div class="col-xs-12 alert alert-danger" ng-if="incorrectDates">
+            Date period is not valid! 
+        </div>
+    </div>
+<div class="text-center" ng-if="loading">
+    <span class="fa fa-spinner fa-spin fa-4x"></span>
+</div>
+<div class="text-center" ng-if="!loading">    
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <canvas id="line" class="chart chart-line" chart-data="data"
+                    chart-labels="labels" chart-legend="true" chart-series="series"
+                    chart-click="onClick" chart-options="chartOptions"></canvas>
+        </div>
+    </div>
+</div>

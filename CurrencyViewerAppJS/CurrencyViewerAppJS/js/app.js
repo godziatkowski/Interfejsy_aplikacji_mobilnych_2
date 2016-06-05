@@ -4,6 +4,7 @@
     angular
             .module('currencyViewerApp', [
                 'ui.router',
-                'ui.bootstrap'
+                'ui.bootstrap',
+                'chart.js'
             ]);
 })();

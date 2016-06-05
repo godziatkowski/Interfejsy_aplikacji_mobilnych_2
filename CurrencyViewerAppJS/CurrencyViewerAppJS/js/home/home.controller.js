@@ -6,12 +6,14 @@
 
     HomeCtrl.$inject = [
         '$scope',
+        '$state',
         'file',
         'fileLoadingService',
         'xmlDownloader'
     ];
 
-    function HomeCtrl($scope, file, fileLoadingService, xmlDownloader) {
+    function HomeCtrl($scope, $state, file, fileLoadingService, xmlDownloader) {
+        $scope.showDetailsOf = showDetailsOf;
         if (file) {
             loadData(file);
         } else {
@@ -23,7 +25,6 @@
         });
 
         function loadData(fileName) {
-            console.log(fileName);
             if (fileName) {
                 fileLoadingService.getFile(fileName)
                     .then(function (result) {
@@ -35,6 +36,10 @@
                         $scope.data = result;
                     });
             }
+        }
+
+        function showDetailsOf(currency) {
+            $state.go('currencyDetails', { currency: currency });
         }
     }
 })();
