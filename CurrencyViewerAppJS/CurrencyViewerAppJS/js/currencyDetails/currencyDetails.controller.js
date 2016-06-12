@@ -6,12 +6,13 @@
 
     CurrencyDetailsCtrl.$inject = [
         '$scope',
+        '$timeout',
         'currency',
         'fileListDownloader',
         'fileLoadingService'
     ];
 
-    function CurrencyDetailsCtrl($scope, currency, fileListDownloader, fileLoadingService) {
+    function CurrencyDetailsCtrl($scope, $timeout, currency, fileListDownloader, fileLoadingService) {
         $scope.currency = currency;
         $scope.fromDate = moment().startOf('year').toDate();
         $scope.toDate = moment().endOf('day').toDate();
@@ -49,22 +50,44 @@
                 return;
             }
             $scope.incorrectDates = false;
+            if ($scope.online) {
+                var years = getYears(fromDate, toDate);
+                fileListDownloader.downloadMany(years).then(function (files) {
+                    var filesToDownload = findFilesToLoad(files, fromDate, toDate);
+                    fileLoadingService.getFiles(filesToDownload)
+                        .then(function (data) {
+                            extractCurrencyDataFromFiles(data);
+                            $scope.loading = false;
+                            $timeout(function () {
+                                $scope.$digest();
+                            });
+                        });
+                });
+            } else {
+                fileLoadingService.getStoredFiles().then(function (files) {
+                    var filesToDownload = findFilesToLoad(files, fromDate, toDate);
+                    fileLoadingService.getFiles(filesToDownload)
+                        .then(function (data) {
+                            extractCurrencyDataFromFiles(data);
+                            $scope.loading = false;
+                            $timeout(function () {
+                                $scope.$digest();
+                            });
 
-            var years = getYears(fromDate, toDate);
-            fileListDownloader.downloadMany(years).then(function (files) {
-                var filesToDownload = [];
-                for (var fileIndex = 0; fileIndex < files.length; fileIndex++) {
-                    var publicationDate = moment(files[fileIndex].publishedAt, 'dddd, MMMM Do YYYY');
-                    if (publicationDate.isBetween(fromDate, toDate)) {
-                        filesToDownload.push(files[fileIndex].fileName);
-                    }
+                        });
+                });
+            }
+        }
+
+        function findFilesToLoad(files, fromDate, toDate) {
+            var filesToDownload = [];
+            for (var fileIndex = 0; fileIndex < files.length; fileIndex++) {
+                var publicationDate = moment(files[fileIndex].publishedAt, 'dddd, MMMM Do YYYY');
+                if (publicationDate.isBetween(fromDate, toDate)) {
+                    filesToDownload.push(files[fileIndex].fileName);
                 }
-                fileLoadingService.getFiles(filesToDownload)
-                    .then(function (data) {
-                        extractCurrencyDataFromFiles(data);                        
-                        $scope.loading = false;
-                    });
-            });
+            }
+            return filesToDownload;
         }
 
         function getYears(fromDate, toDate) {

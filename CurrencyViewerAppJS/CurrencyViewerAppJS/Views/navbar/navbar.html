@@ -1,7 +1,7 @@
 ﻿<div class="navbar navbar-default" navbar-inverse " role="navigation">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
-            <li> <a ui-sref="home"> <span class="fa fa-list"></span>Home</a> </li>
+            <li> <a ui-sref="home({useStored: true})"> <span class="fa fa-list"></span>Home</a> </li>
             <li> <a ui-sref="fileList"><span class="fa fa-calendar"></span> Files from other days</a> </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -15,4 +15,7 @@
             </li>
         </ul>
     </div>
+</div>
+<div class="alert alert-warning" ng-if="!online">
+    No internet connection! Displayed data is loaded from device memory.
 </div>

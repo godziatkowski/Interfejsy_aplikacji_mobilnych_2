@@ -12,12 +12,7 @@
             parent: 'root',
             url: '/fileList',
             templateUrl: 'views/fileList/fileList.html',
-            controller: 'FileListCtrl',
-            resolve: {
-                fallback: function () {
-                    return undefined;
-                }
-            }
+            controller: 'FileListCtrl'
         });
     }
 })();

@@ -7,12 +7,13 @@
     HomeCtrl.$inject = [
         '$scope',
         '$state',
+        '$timeout',
         'file',
         'fileLoadingService',
         'xmlDownloader'
     ];
 
-    function HomeCtrl($scope, $state, file, fileLoadingService, xmlDownloader) {
+    function HomeCtrl($scope, $state, $timeout, file, fileLoadingService, xmlDownloader) {
         $scope.showDetailsOf = showDetailsOf;
         if (file) {
             loadData(file);
@@ -25,15 +26,21 @@
         });
 
         function loadData(fileName) {
+            $scope.loading = true;
             if (fileName) {
                 fileLoadingService.getFile(fileName)
-                    .then(function (result) {
+                    .then(function (result) {                    
                         $scope.data = result;
+                        $scope.loading = false;
+                        $timeout(function () {
+                            $scope.$digest();
+                        });
                     });
             } else {
                 xmlDownloader.download('lastA')
                     .then(function (result) {
                         $scope.data = result;
+                        $scope.loading = false;
                     });
             }
         }

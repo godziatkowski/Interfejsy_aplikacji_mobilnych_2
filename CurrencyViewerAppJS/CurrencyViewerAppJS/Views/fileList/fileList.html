@@ -5,7 +5,7 @@
 <div ng-if="!loading">
     <table class="table table-striped">
         <tbody>
-            <tr ng-if="files.length > 0" class="clickable" ng-repeat="file in files" ng-click="loadCurrencyFromFile(file)">
+            <tr ng-if="files.length > 0" class="clickable" ng-repeat="file in files | orderBy: 'date' : true" ng-click="loadCurrencyFromFile(file)">
                 <td class="text-center">{{file.publishedAt}}</td>
             </tr>
             <tr ng-if="files.length === 0">

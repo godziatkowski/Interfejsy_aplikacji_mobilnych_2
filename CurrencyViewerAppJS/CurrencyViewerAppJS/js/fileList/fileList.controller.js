@@ -7,11 +7,12 @@
     FileListCtrl.$inject = [
         '$scope',
         '$state',
-        'fallback',
-        'fileListDownloader'
+        '$timeout',
+        'fileListDownloader',
+        'fileLoadingService'
     ];
 
-    function FileListCtrl($scope, $state, fallback, fileListDownloader) {
+    function FileListCtrl($scope, $state, $timeout, fileListDownloader, fileLoadingService) {
         $scope.years = fillYears();
         $scope.year = moment().year();
         $scope.files = [];
@@ -23,19 +24,34 @@
             $state.go('home', { 'fileName': file.fileName });
         }
 
+        $scope.$watch( 'online', function(){
+            loadFiles();
+        });
+
         function loadFiles(year) {
             $scope.files = [];
             $scope.loading = true;
-            if (year && year !== moment().year()) {
-                fileListDownloader.download(year).then(function (result) {
-                    $scope.files = result;
-                    $scope.loading = false;
-                });
+            if ($scope.online) {
+                if (year && year !== moment().year()) {
+                    fileListDownloader.download(year).then(function (result) {
+                        $scope.files = result;
+                        $scope.loading = false;
+                    });
+                } else {
+                    fileListDownloader.download('').then(function (result) {
+                        $scope.files = result;
+                        $scope.loading = false;
+                    });
+                }
             } else {
-                fileListDownloader.download('').then(function (result) {
-                    $scope.files = result;
+                fileLoadingService.getStoredFiles().then(function (files) {
+                    $scope.files = files;
                     $scope.loading = false;
+                    $timeout(function () {
+                        $scope.$digest();
+                    });
                 });
+                
             }
         }
 
@@ -47,6 +63,8 @@
             }
             return years;
         }
+
+        
 
     }
 })();

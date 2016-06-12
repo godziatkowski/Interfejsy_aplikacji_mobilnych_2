@@ -10,7 +10,7 @@
     function HomeRouteProvider($stateProvider) {
         $stateProvider.state('home', {
             parent: 'root',
-            url: '/home?fileName',
+            url: '/home?fileName&useStored',
             templateUrl: 'views/home/home.html',
             controller: 'HomeCtrl',
             resolve: {

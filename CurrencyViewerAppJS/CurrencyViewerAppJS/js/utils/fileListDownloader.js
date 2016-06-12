@@ -28,8 +28,8 @@
                 for (var index = 0; index < allFiles.length; index++) {
                     if (allFiles[index].startsWith('a')) {
                         var stringDate = allFiles[index].trim().slice(-6);
-                        var publishedAt = moment( stringDate, 'YYMMDD').format('dddd, MMMM Do YYYY')
-                        data.push({ fileName: allFiles[index].trim(), publishedAt: publishedAt })
+                        var publishedAt = moment(stringDate, 'YYMMDD');
+                        data.push({ fileName: allFiles[index].trim(), publishedAt: publishedAt.format('dddd, MMMM Do YYYY'), date: publishedAt.toDate() })
                     }
                 }
                 return data;

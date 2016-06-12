@@ -3,7 +3,8 @@
 .win-scrollview {
     height:auto;
     /*max-height: 800px;*/
-    overflow-y: scroll;    
+    overflow-y: auto;
+    overflow-x: hidden;    
 }
 .clickable {
     cursor: pointer;    
