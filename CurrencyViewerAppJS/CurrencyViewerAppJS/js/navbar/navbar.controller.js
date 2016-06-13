@@ -12,9 +12,14 @@
     function NavbarCtrl($scope, $rootScope) {
         $scope.loadLast = loadLast;
         $scope.exit = exit;
+        $scope.goBack = goBack;
 
         function loadLast() {
             $rootScope.$broadcast('loadLastEvent');
+        }
+
+        function goBack(){
+            $scope.back();
         }
 
         function exit() {

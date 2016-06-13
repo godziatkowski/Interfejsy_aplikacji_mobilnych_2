@@ -10,7 +10,7 @@
     function FileListRouteProvider($stateProvider) {
         $stateProvider.state('fileList', {
             parent: 'root',
-            url: '/fileList',
+            url: '/fileList?wentBack',
             templateUrl: 'views/fileList/fileList.html',
             controller: 'FileListCtrl'
         });

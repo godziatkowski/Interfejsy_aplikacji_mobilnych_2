@@ -4,22 +4,32 @@
     var config = {
     };
 
+    /*
+        TODO:
+        Session State - store information about current state (with required params) in session state
+    */
+
     angular
             .module('currencyViewerApp')
             .constant('config', config)
-            .run(['$rootScope', '$state', '$window',
-                function ($rootScope, $state, $window) {
+            .run(['$rootScope', '$state', '$window', 'stateHistoryService',
+                function ($rootScope, $state, $window, stateHistoryService) {
                     $('#content').height($('#app').height() - 70);
                     $state.go('home');
-                    $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
+                    $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams, fromState, fromStateParams) {
+                        if (!toStateParams.wentBack) {
+                            stateHistoryService.push(fromState.name, fromStateParams);
+                        }
                         $rootScope.toState = toState;
                         $rootScope.toStateParams = toStateParams;
                         
                     });
 
                     $rootScope.back = function () {
-                        if ($state.get($rootScope.previousStateName)) {
-                            $state.go($rootScope.previousStateName, $rootScope.previousStateParams);
+                        var previousState = stateHistoryService.pop();
+                        if (previousState) {
+                            previousState.params.wentBack = true;
+                            $state.go(previousState.state, previousState.params);
                         } else {
                             $state.go('home');
                         }

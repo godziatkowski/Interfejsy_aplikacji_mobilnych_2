@@ -106,6 +106,7 @@
     <Content Include="js\utils\fileListDownloader.js" />
     <Content Include="js\utils\fileStoringService.js" />
     <Content Include="js\utils\fileLoadingService.js" />
+    <Content Include="js\utils\stateHistoryService.js" />
     <Content Include="js\utils\xml2json.js" />
     <Content Include="js\utils\xmlDownloader.js" />
     <Content Include="packages.config" />

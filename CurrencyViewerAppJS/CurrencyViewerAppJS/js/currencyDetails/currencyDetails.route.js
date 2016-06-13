@@ -10,7 +10,7 @@
     function CurrencyDetailsRouteProvider($stateProvider) {
         $stateProvider.state('currencyDetails', {
             parent: 'root',
-            url: '/currencyDetails',
+            url: '/currencyDetails?wentBack',
             templateUrl: 'views/currencyDetails/currencyDetails.html',
             controller: 'CurrencyDetailsCtrl',
             params: {currency: null},
