@@ -12,16 +12,22 @@
     angular
             .module('currencyViewerApp')
             .constant('config', config)
-            .run(['$rootScope', '$state', '$window', 'stateHistoryService',
-                function ($rootScope, $state, $window, stateHistoryService) {
+            .run(['$rootScope', '$state', '$timeout', '$window', 'stateHistoryService', 'sessionStateWrapper',
+                function ($rootScope, $state, $timeout, $window, stateHistoryService, sessionStateWrapper) {
                     $('#content').height($('#app').height() - 70);
-                    $state.go('home');
+                    
                     $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams, fromState, fromStateParams) {
-                        if (!toStateParams.wentBack) {
+
+                        if (!toStateParams.wentBack && fromState.name !== 'loadingView') {
                             stateHistoryService.push(fromState.name, fromStateParams);
                         }
                         $rootScope.toState = toState;
                         $rootScope.toStateParams = toStateParams;
+                        if (toStateParams.wentBack) {
+                            toStateParams.wentBack = undefined;
+                        }
+                        sessionStateWrapper.putState(toState.name, toStateParams);
+                        sessionStateWrapper.getState();
                         
                     });
 

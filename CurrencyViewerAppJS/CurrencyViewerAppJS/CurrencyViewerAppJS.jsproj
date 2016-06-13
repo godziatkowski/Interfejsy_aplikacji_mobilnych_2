@@ -99,6 +99,8 @@
     <Content Include="js\default.js" />
     <Content Include="css\default.css" />
     <Content Include="js\home\home.route.js" />
+    <Content Include="js\loadingView\loadingView.controller.js" />
+    <Content Include="js\loadingView\loadingVIew.route.js" />
     <Content Include="js\navbar\navbar.controller.js" />
     <Content Include="js\utils\charts\angular-chart.js" />
     <Content Include="js\utils\charts\angular-chart.min.js" />
@@ -106,6 +108,7 @@
     <Content Include="js\utils\fileListDownloader.js" />
     <Content Include="js\utils\fileStoringService.js" />
     <Content Include="js\utils\fileLoadingService.js" />
+    <Content Include="js\utils\sessionStateWrapper.js" />
     <Content Include="js\utils\stateHistoryService.js" />
     <Content Include="js\utils\xml2json.js" />
     <Content Include="js\utils\xmlDownloader.js" />
@@ -135,6 +138,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Views\fileList\fileList.html" />
     <Content Include="Views\home\Home.html" />
+    <Content Include="Views\loadingVIew\loadingView.html" />
     <Content Include="Views\navbar\navbar.html" />
     <Content Include="Views\currencyDetails\currencyDetails.html" />
     <Content Include="WinJS\css\ui-dark.css" />
