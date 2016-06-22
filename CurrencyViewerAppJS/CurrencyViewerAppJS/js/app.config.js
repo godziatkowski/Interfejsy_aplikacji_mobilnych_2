@@ -26,14 +26,17 @@
                         if (toStateParams.wentBack) {
                             toStateParams.wentBack = undefined;
                         }
-                        sessionStateWrapper.putState(toState.name, toStateParams);
-                        sessionStateWrapper.getState();
+                        if (toState.name != 'loadingView') {
+                            sessionStateWrapper.putState(toState.name, toStateParams);
+                            sessionStateWrapper.getState();
+                        }
                         
                     });
 
                     $rootScope.back = function () {
                         var previousState = stateHistoryService.pop();
-                        if (previousState) {
+                        
+                        if (previousState && previousState.state !== '') {
                             previousState.params.wentBack = true;
                             $state.go(previousState.state, previousState.params);
                         } else {
